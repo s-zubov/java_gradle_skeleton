@@ -1,14 +1,10 @@
 package com.codemanship
 
 class Order {
-    fun addItem(item: Item) {
-        items.add(item)
-    }
-
     fun quantityOf(id: Int): Int = items.singleOrNull { it.id == id }?.quantity ?: 0
 
     fun add(product: Product, quantity: Int) {
-        if(product.stockQty < product.holdQty + quantity) {
+        if (product.stockQty < product.holdQty + quantity) {
             return
         }
 
