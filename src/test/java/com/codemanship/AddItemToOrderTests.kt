@@ -16,6 +16,6 @@ class AddItemToOrderTests {
         val order = Order()
         val item = Item(327, 1)
         order.addItem(item)
-        Assertions.assertEquals(1, order.items.filter{it.id == 327}[0].quantity)
+        Assertions.assertEquals(1, order.items.single{it.id == 327}.quantity)
     }
 }
