@@ -5,5 +5,7 @@ class Order {
         items.add(item)
     }
 
-    val items: MutableList<Item> = mutableListOf()
+    fun quantityOf(id: Int): Int = items.single { it.id == id }.quantity
+
+    private val items: MutableList<Item> = mutableListOf()
 }
