@@ -5,7 +5,7 @@ class Order {
 
     fun add(product: Product, quantity: Int) {
         if (product.stockQty < product.holdQty + quantity) {
-            return
+            throw InsufficientStockException("Insufficient stock of Ibanez Tube Screamer. Only 1 currently available.")
         }
 
         val item = Item(product.id, quantity)
