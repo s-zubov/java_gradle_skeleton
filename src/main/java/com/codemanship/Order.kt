@@ -1,6 +1,13 @@
 package com.codemanship
 
-class Order {
+class Order() {
+    private val items: MutableList<Item> = mutableListOf()
+
+    constructor(product: Product, quantity: Int) : this() {
+        val item = Item(product.id, quantity)
+        items.add(item)
+    }
+
     fun quantityOf(id: Int): Int = items.singleOrNull { it.id == id }?.quantity ?: 0
 
     fun add(product: Product, quantity: Int) {
@@ -13,5 +20,7 @@ class Order {
         product.hold(quantity)
     }
 
-    private val items: MutableList<Item> = mutableListOf()
+    fun remove(product: Product) {
+        items.removeIf { it.id == product.id }
+    }
 }
