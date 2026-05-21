@@ -1,5 +1,4 @@
 package com.codemanship
 
-class InsufficientStockException(message: String) : RuntimeException(message) {
-
-}
+class InsufficientStockException(product: Product) :
+    RuntimeException("Insufficient stock of ${product.description}. Only ${product.stockQty} currently available.")
