@@ -56,4 +56,17 @@ class AddItemToOrderTests {
             fail("Should have thrown an error")
         }
     }
+
+    @Nested
+    inner class `reject adding an item when insufficient stock is available due to stock on hold` {
+        @Test
+        fun `order contains no items`() {
+            val order = Order()
+            val product = Product(id = 327, stockQty = 2, holdQty = 1)
+
+            runCatching { order.add(product, 2) }
+
+            Assertions.assertEquals(0, order.quantityOf(327))
+        }
+    }
 }
