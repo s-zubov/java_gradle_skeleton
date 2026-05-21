@@ -8,11 +8,11 @@ import org.junit.jupiter.api.fail
 class AddItemToOrderTests {
     @Nested
     inner class `add an item when sufficient stock is available` {
-        val order = Order()
-        val product = Product(327, stockQty = 7)
-
         @Test
         fun `puts a temporary hold`() {
+            val order = Order()
+            val product = Product(327, stockQty = 7)
+
             order.add(product, 1)
 
             Assertions.assertEquals(1, product.holdQty)
@@ -20,6 +20,9 @@ class AddItemToOrderTests {
 
         @Test
         fun `sets order quantity to 1`() {
+            val order = Order()
+            val product = Product(327, stockQty = 7)
+
             order.add(product, 1)
 
             Assertions.assertEquals(1, order.quantityOf(327))
@@ -28,11 +31,11 @@ class AddItemToOrderTests {
 
     @Nested
     inner class `add an item when insufficient stock is available and no stock is on hold` {
-        val order = Order()
-        val product = Product(id = 327, stockQty = 1)
-
         @Test
         fun `order contains no items`() {
+            val order = Order()
+            val product = Product(id = 327, stockQty = 1)
+
             runCatching { order.add(product, 2) }
 
             Assertions.assertEquals(0, order.quantityOf(327))
@@ -40,6 +43,9 @@ class AddItemToOrderTests {
 
         @Test
         fun `insufficient stock error is raised`() {
+            val order = Order()
+            val product = Product(id = 327, stockQty = 1)
+
              try {
                  order.add(product, 2)
              } catch (e: InsufficientStockException) {
