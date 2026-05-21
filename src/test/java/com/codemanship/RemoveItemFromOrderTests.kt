@@ -18,6 +18,16 @@ class RemoveItemFromOrderTests {
 
             Assertions.assertEquals(0, order.quantityOf(327))
         }
+
+        @Test
+        fun `temporary hold is released from the product stock`() {
+            val product = Product(id = 327, stockQty = 7, holdQty = 2)
+            val order = Order(product, 2)
+
+            order.remove(product)
+
+            Assertions.assertEquals(0, product.holdQty)
+        }
     }
 
 

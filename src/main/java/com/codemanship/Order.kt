@@ -21,6 +21,8 @@ class Order() {
     }
 
     fun remove(product: Product) {
-        items.removeIf { it.id == product.id }
+        val itemToRemove = items.single { it.id == product.id }
+        items.remove(itemToRemove)
+        product.releaseHold(itemToRemove.quantity)
     }
 }
