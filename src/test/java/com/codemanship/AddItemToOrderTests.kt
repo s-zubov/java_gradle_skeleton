@@ -46,12 +46,13 @@ class AddItemToOrderTests {
             val order = Order()
             val product = Product(id = 327, stockQty = 1)
 
-             try {
-                 order.add(product, 2)
-             } catch (e: InsufficientStockException) {
-                 Assertions.assertEquals("Insufficient stock of Ibanez Tube Screamer. Only 1 currently available.", e.message)
-                 return
-             }
+            try {
+                order.add(product, 2)
+            } catch (e: InsufficientStockException) {
+                val expectedMessage = "Insufficient stock of Ibanez Tube Screamer. Only 1 currently available."
+                Assertions.assertEquals(expectedMessage, e.message)
+                return
+            }
             fail("Should have thrown an error")
         }
     }
