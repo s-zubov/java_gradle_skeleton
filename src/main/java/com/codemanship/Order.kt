@@ -1,6 +1,8 @@
 package com.codemanship
 
 class Order() {
+    val totalExclShipping: Int = 0
+
     private val items: MutableMap<Int, Int> = mutableMapOf()
 
     constructor(product: Product, quantity: Int) : this() {
