@@ -1,9 +1,20 @@
 package com.codemanship
 
-data class OrderItem(private val product: Product, var quantity: Int) {
-    val id = product.id
+import java.math.BigDecimal
 
-    val price = product.price
+class OrderItem {
+    constructor(product: Product, quantity: Int) {
+        this.product = product
+        this.quantity = quantity
+        this.price = product.price
+    }
+
+    private val product: Product
+
+    var quantity: Int
+        private set
+
+    val price: BigDecimal
 
     fun add(qty: Int) {
         quantity += qty
