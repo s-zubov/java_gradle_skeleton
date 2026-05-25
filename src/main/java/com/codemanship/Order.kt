@@ -7,6 +7,12 @@ class Order() {
         items[product.id] = OrderItem(product, quantity)
     }
 
+    constructor(products: List<Pair<Product, Int>>) : this() {
+        products.forEach { (product, quantity) ->
+            items[product.id] = OrderItem(product, quantity)
+        }
+    }
+
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     val totalExclShipping: BigDecimal
