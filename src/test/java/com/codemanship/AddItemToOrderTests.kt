@@ -12,7 +12,7 @@ class AddItemToOrderTests {
         @Test
         fun `puts a temporary hold`() {
             val order = Order()
-            val product = Product(327, price = BigDecimal("159.99"), stockQty = 7)
+            val product = Product(327, price = BigDecimal("159.99"), stockQty = 7, holdQty = 0)
 
             order.add(product, 1)
 
@@ -22,7 +22,7 @@ class AddItemToOrderTests {
         @Test
         fun `sets order quantity to 1`() {
             val order = Order()
-            val product = Product(327, price = BigDecimal("159.99"), stockQty = 7)
+            val product = Product(327, price = BigDecimal("159.99"), stockQty = 7, holdQty = 0)
 
             order.add(product, 1)
 
@@ -35,7 +35,7 @@ class AddItemToOrderTests {
         @Test
         fun `order contains no items`() {
             val order = Order()
-            val product = Product(id = 327, price = BigDecimal("159.99"), stockQty = 1)
+            val product = Product(id = 327, price = BigDecimal("159.99"), stockQty = 1, holdQty = 0)
 
             runCatching { order.add(product, 2) }
 
@@ -45,7 +45,7 @@ class AddItemToOrderTests {
         @Test
         fun `insufficient stock error is raised`() {
             val order = Order()
-            val product = Product(id = 327, price = BigDecimal("159.99"), stockQty = 1)
+            val product = Product(id = 327, price = BigDecimal("159.99"), stockQty = 1, holdQty = 0)
 
             try {
                 order.add(product, 2)
