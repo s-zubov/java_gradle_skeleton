@@ -3,16 +3,16 @@ package com.codemanship
 import java.math.BigDecimal
 
 class Order() {
+    constructor(product: Product, quantity: Int) : this() {
+        items[product.id] = OrderItem(product, quantity)
+    }
+
+    private val items: MutableMap<Int, OrderItem> = mutableMapOf()
+
     val totalExclShipping: BigDecimal
         get() {
             return items.values.sumOf { item -> item.price * item.quantity.toBigDecimal() }
         }
-
-    private val items: MutableMap<Int, OrderItem> = mutableMapOf()
-
-    constructor(product: Product, quantity: Int) : this() {
-        items[product.id] = OrderItem(product, quantity)
-    }
 
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
 
