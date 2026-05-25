@@ -18,11 +18,7 @@ class CalculateOrderTotalExcludingShippingTests {
     @Test
     fun `for an order with one item`() {
         val product = Product(
-            id = 327,
-            description = "Ibanez Tube Screamer",
-            price = BigDecimal("159.95"),
-            stockQty = 7,
-            holdQty = 1
+            id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
         )
         val order = Order(product, 1)
 
@@ -34,23 +30,27 @@ class CalculateOrderTotalExcludingShippingTests {
     @Test
     fun `for an order with two items`() {
         val product = Product(
-            id = 327,
-            description = "Ibanez Tube Screamer",
-            price = BigDecimal("159.95"),
-            stockQty = 7,
-            holdQty = 1
+            id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
         )
         val product2 = Product(
-            id = 811,
-            description = "Ibanez Tube Screamer",
-            price = BigDecimal("1799.00"),
-            stockQty = 2,
-            holdQty = 1
+            id = 811, description = "Ibanez Tube Screamer", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
         )
         val order = Order(listOf(product to 1, product2 to 1))
 
         val totalExclShipping = order.totalExclShipping
 
         Assertions.assertEquals(BigDecimal("1958.95"), totalExclShipping)
+    }
+
+    @Test
+    fun `for an order with one item of two quantity`() {
+        val product = Product(
+            id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 2
+        )
+        val order = Order(product, 2)
+
+        val totalExclShipping = order.totalExclShipping
+
+        Assertions.assertEquals(BigDecimal("319.90"), totalExclShipping)
     }
 }
