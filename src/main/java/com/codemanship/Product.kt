@@ -5,23 +5,23 @@ import java.math.BigDecimal
 class Product {
     constructor(id: Int, description: String, price: BigDecimal, stockQty: Int, holdQty: Int) {
         this.id = id
-        this.holdQty = holdQty
-        this.stockQty = stockQty
-        this.price = price
         this.description = description
+        this.price = price
+        this.stockQty = stockQty
+        this.holdQty = holdQty
     }
 
     val id: Int
 
-    var holdQty: Int
-        private set
-
-    var stockQty: Int
+    var description: String
         private set
 
     val price: BigDecimal
 
-    var description: String
+    var stockQty: Int
+        private set
+
+    var holdQty: Int
         private set
 
     val availableQty: Int
