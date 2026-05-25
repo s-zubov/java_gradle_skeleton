@@ -12,7 +12,13 @@ class RemoveItemFromOrderTests {
 
         @Test
         fun `the order contains no item`() {
-            val product = Product(id = 327, price = BigDecimal("159.99"), stockQty = 7, holdQty = 2)
+            val product = Product(
+                id = 327,
+                description = "Ibanez Tube Screamer",
+                price = BigDecimal("159.99"),
+                stockQty = 7,
+                holdQty = 2
+            )
             val order = Order(product, 2)
 
             order.remove(product)
@@ -22,7 +28,13 @@ class RemoveItemFromOrderTests {
 
         @Test
         fun `temporary hold is released from the product stock`() {
-            val product = Product(id = 327, price = BigDecimal("159.99"), stockQty = 7, holdQty = 2)
+            val product = Product(
+                id = 327,
+                description = "Ibanez Tube Screamer",
+                price = BigDecimal("159.99"),
+                stockQty = 7,
+                holdQty = 2
+            )
             val order = Order(product, 2)
 
             order.remove(product)
