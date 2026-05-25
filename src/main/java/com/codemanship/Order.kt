@@ -1,28 +1,38 @@
 package com.codemanship
 
-class Order() {
-    val totalExclShipping: Int = 0
+import java.math.BigDecimal
 
-    private val items: MutableMap<Int, Int> = mutableMapOf()
+class Order() {
+    val totalExclShipping: BigDecimal
+        get() {
+            return items.values.sumOf { item -> item.price * item.quantity.toBigDecimal() }
+        }
+
+    private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     constructor(product: Product, quantity: Int) : this() {
-        items[product.id] = quantity
+        items[product.id] = OrderItem(product, quantity)
     }
 
-    fun quantityOf(id: Int): Int = items[id] ?: 0
+    fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
 
     fun add(product: Product, quantity: Int) {
         if (product.stockQty < product.holdQty + quantity) {
             throw InsufficientStockException(product)
         }
 
-        items[product.id] = (items[product.id] ?: 0) + quantity
+        val existingItem: OrderItem? = items[product.id]
+        if (existingItem != null) {
+            existingItem.add(quantity)
+        } else {
+            items[product.id] = OrderItem(product, quantity)
+        }
 
         product.hold(quantity)
     }
 
     fun remove(product: Product) {
-        val itemCountToRemove = items[product.id] ?: 0
+        val itemCountToRemove = items[product.id]?.quantity ?: 0
         items.remove(product.id)
         product.releaseHold(itemCountToRemove)
     }
