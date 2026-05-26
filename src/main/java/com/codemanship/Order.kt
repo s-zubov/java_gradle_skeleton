@@ -22,7 +22,8 @@ class Order() {
 
     val shippingCost: BigDecimal
         get() {
-            return BigDecimal("5.99")
+            return if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
+            else BigDecimal.ZERO
         }
 
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
