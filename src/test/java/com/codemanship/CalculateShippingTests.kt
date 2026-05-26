@@ -8,7 +8,7 @@ class CalculateShippingTests {
 
     @Test
     fun `for UK order cost under 100`() {
-        val product = Product(id = 123, description = "Musica", price = BigDecimal("89.99"), stockQty = 8, holdQty = 1)
+        val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
         val order = Order(product, 1)
 
         val shippingCost = order.shippingCost
@@ -21,7 +21,7 @@ class CalculateShippingTests {
         val product = Product(
             id = 327,
             description = "Ibanez Tube Screamer",
-            price = BigDecimal("159.95"),
+            price = BigDecimal("100.00"),
             stockQty = 7,
             holdQty = 1
         )
