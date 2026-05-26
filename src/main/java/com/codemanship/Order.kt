@@ -13,6 +13,11 @@ class Order() {
         }
     }
 
+    val shippingCost: BigDecimal
+        get() {
+            return BigDecimal("5.99")
+        }
+
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     val totalExclShipping: BigDecimal
