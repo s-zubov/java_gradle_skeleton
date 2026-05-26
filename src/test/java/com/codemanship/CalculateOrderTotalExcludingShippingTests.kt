@@ -33,7 +33,7 @@ class CalculateOrderTotalExcludingShippingTests {
             id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
         )
         val product2 = Product(
-            id = 811, description = "Ibanez Tube Screamer", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
+            id = 811, description = "Fender Deluxe Reverb", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
         )
         val order = Order(listOf(product to 1, product2 to 1))
 
