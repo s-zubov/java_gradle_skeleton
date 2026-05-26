@@ -13,6 +13,8 @@ class Order() {
         }
     }
 
+    var country: String = ""
+
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     val totalExclShipping: BigDecimal
@@ -22,8 +24,13 @@ class Order() {
 
     val shippingCost: BigDecimal
         get() {
-            return if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
-            else BigDecimal.ZERO
+            return if (country == "UK") {
+                if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
+                else BigDecimal.ZERO
+            } else {
+                if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
+                else BigDecimal("5.99")
+            }
         }
 
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
