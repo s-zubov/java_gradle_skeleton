@@ -13,16 +13,16 @@ class Order() {
         }
     }
 
-    val shippingCost: BigDecimal
-        get() {
-            return BigDecimal("5.99")
-        }
-
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     val totalExclShipping: BigDecimal
         get() {
             return items.values.sumOf { item -> item.price * item.quantity.toBigDecimal() }
+        }
+
+    val shippingCost: BigDecimal
+        get() {
+            return BigDecimal("5.99")
         }
 
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
