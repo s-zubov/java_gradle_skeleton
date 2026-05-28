@@ -13,24 +13,11 @@ class Order() {
         }
     }
 
-    var country: String = ""
-
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     val totalExclShipping: BigDecimal
         get() {
             return items.values.sumOf { item -> item.price * item.quantity.toBigDecimal() }
-        }
-
-    val shippingCost: BigDecimal
-        get() {
-            return if (country == "UK") {
-                if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
-                else BigDecimal.ZERO
-            } else {
-                if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
-                else BigDecimal("5.99")
-            }
         }
 
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
@@ -54,5 +41,15 @@ class Order() {
         val itemCountToRemove = items[product.id]?.quantity ?: 0
         items.remove(product.id)
         product.releaseHold(itemCountToRemove)
+    }
+
+    fun shippingCost(country: String): BigDecimal {
+        return if (country == "UK") {
+            if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
+            else BigDecimal.ZERO
+        } else {
+            if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
+            else BigDecimal("5.99")
+        }
     }
 }
