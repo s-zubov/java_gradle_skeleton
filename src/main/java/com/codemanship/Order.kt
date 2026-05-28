@@ -43,7 +43,8 @@ class Order() {
         product.releaseHold(itemCountToRemove)
     }
 
-    fun shippingCost(country: String): BigDecimal {
+    fun getShippingCost(customer: Customer): BigDecimal {
+        val country = customer.country
         return if (country == "UK") {
             if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
             else BigDecimal.ZERO
@@ -53,3 +54,4 @@ class Order() {
         }
     }
 }
+

@@ -10,8 +10,9 @@ class CalculateShippingTests {
     fun `for UK order cost under 100`() {
         val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
         val order = Order(product, 1)
+        val customer = Customer("UK")
 
-        val shippingCost = order.shippingCost(country ="UK")
+        val shippingCost = order.getShippingCost(customer)
 
         Assertions.assertEquals(BigDecimal("5.99"), shippingCost)
     }
@@ -26,8 +27,9 @@ class CalculateShippingTests {
             holdQty = 1
         )
         val order = Order(product, 1)
+        val customer = Customer("UK")
 
-        val shippingCost = order.shippingCost(country = "UK")
+        val shippingCost = order.getShippingCost(customer)
 
         Assertions.assertEquals(BigDecimal.ZERO, shippingCost)
     }
@@ -36,8 +38,9 @@ class CalculateShippingTests {
     fun `for EU order cost under 100`() {
         val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
         val order = Order(product, 1)
+        val customer = Customer("Germany")
 
-        val shippingCost = order.shippingCost(country = "Germany")
+        val shippingCost = order.getShippingCost(customer)
 
         Assertions.assertEquals(BigDecimal("9.99"), shippingCost)
     }
