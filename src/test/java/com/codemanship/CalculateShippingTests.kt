@@ -10,7 +10,7 @@ class CalculateShippingTests {
     fun `for UK order cost under 100`() {
         val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
         val customer = Customer("UK")
-        val order = Order(customer, product, 1)
+        val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
 
@@ -27,7 +27,7 @@ class CalculateShippingTests {
             holdQty = 1
         )
         val customer = Customer("UK")
-        val order = Order(customer, product, 1)
+        val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
 
@@ -38,7 +38,7 @@ class CalculateShippingTests {
     fun `for EU order cost under 100`() {
         val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
         val customer = Customer("Germany")
-        val order = Order(customer, product, 1)
+        val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
 
