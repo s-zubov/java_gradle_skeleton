@@ -13,6 +13,12 @@ class Order() {
         }
     }
 
+    constructor(customer: Customer, product: Product, quantity: Int) : this(product, quantity) {
+        this.customer = customer
+    }
+
+    private var customer: Customer? = null
+
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     val totalExclShipping: BigDecimal
@@ -43,15 +49,17 @@ class Order() {
         product.releaseHold(itemCountToRemove)
     }
 
-    fun getShippingCost(customer: Customer): BigDecimal {
-        val country = customer.country
-        return if (country == "UK") {
-            if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
-            else BigDecimal.ZERO
-        } else {
-            if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
-            else BigDecimal("5.99")
+    val shippingCost: BigDecimal
+        get() {
+            val country = customer?.country
+            checkNotNull(country) { "Can't calculate shipping cost without country." }
+            return if (country == "UK") {
+                if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
+                else BigDecimal.ZERO
+            } else {
+                if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
+                else BigDecimal("5.99")
+            }
         }
-    }
 }
 
