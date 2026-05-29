@@ -1,5 +1,5 @@
 package com.codemanship
 
-data class Customer(val country: String) {
+class Customer(private val country: String) {
     fun createOrder(product: Product, quantity: Int) = Order(product, quantity, country)
 }
