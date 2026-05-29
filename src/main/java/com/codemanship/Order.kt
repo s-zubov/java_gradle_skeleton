@@ -13,11 +13,11 @@ class Order() {
         }
     }
 
-    constructor(customer: Customer, product: Product, quantity: Int) : this(product, quantity) {
-        this.customer = customer
+    constructor(product: Product, quantity: Int, deliveryCountry: String) : this(product, quantity) {
+        this.deliveryCountry = deliveryCountry
     }
 
-    private var customer: Customer? = null
+    private var deliveryCountry: String? = null
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
@@ -51,7 +51,7 @@ class Order() {
 
     val shippingCost: BigDecimal
         get() {
-            val country = customer?.country
+            val country = deliveryCountry
             checkNotNull(country) { "Can't calculate shipping cost without country." }
             return if (country == "UK") {
                 if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
