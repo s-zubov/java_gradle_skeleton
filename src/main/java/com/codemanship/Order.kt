@@ -66,7 +66,8 @@ class Order() {
                 "EU" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
                 else BigDecimal("5.99")
 
-                "Other" -> BigDecimal("12.99")
+                "Other" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("12.99")
+                else BigDecimal("9.99")
 
                 else -> throw IllegalStateException("Can't calculate shipping cost for shipping zone $shippingZone.")
             }
