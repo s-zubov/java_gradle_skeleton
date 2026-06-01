@@ -17,6 +17,13 @@ class Order() {
         this.deliveryCountry = deliveryCountry
     }
 
+    private val shippingZone: String
+        get() = when (deliveryCountry) {
+            "UK" -> "UK"
+            "Germany" -> "EU"
+            else -> throw IllegalStateException("Delivery country $deliveryCountry is not supported.")
+        }
+
     private var deliveryCountry: String? = null
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
@@ -51,14 +58,14 @@ class Order() {
 
     val shippingCost: BigDecimal
         get() {
-            val country = deliveryCountry
-            checkNotNull(country) { "Can't calculate shipping cost without country." }
-            return if (country == "UK") {
-                if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
+            return when (shippingZone) {
+                "UK" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
                 else BigDecimal.ZERO
-            } else {
-                if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
+
+                "EU" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
                 else BigDecimal("5.99")
+
+                else -> throw IllegalStateException("Can't calculate shipping cost for shipping zone $shippingZone.")
             }
         }
 }
