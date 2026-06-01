@@ -21,6 +21,7 @@ class Order() {
         get() = when (deliveryCountry) {
             "UK" -> "UK"
             "Germany" -> "EU"
+            "France" -> "EU"
             else -> throw IllegalStateException("Delivery country $deliveryCountry is not supported.")
         }
 
