@@ -61,4 +61,15 @@ class CalculateShippingTests {
 
         Assertions.assertEquals(BigDecimal("5.99"), shippingCost)
     }
+
+    @Test
+    fun `for other region cost under 100`() {
+        val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
+        val customer = Customer("United States")
+        val order = customer.createOrder(product, 1)
+
+        val shippingCost = order.shippingCost
+
+        Assertions.assertEquals(BigDecimal("12.99"), shippingCost)
+    }
 }

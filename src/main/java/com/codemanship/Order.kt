@@ -22,7 +22,7 @@ class Order() {
             "UK" -> "UK"
             "Germany" -> "EU"
             "France" -> "EU"
-            else -> throw IllegalStateException("Delivery country $deliveryCountry is not supported.")
+            else -> "Other"
         }
 
     private var deliveryCountry: String? = null
@@ -65,6 +65,8 @@ class Order() {
 
                 "EU" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
                 else BigDecimal("5.99")
+
+                "Other" -> BigDecimal("12.99")
 
                 else -> throw IllegalStateException("Can't calculate shipping cost for shipping zone $shippingZone.")
             }
