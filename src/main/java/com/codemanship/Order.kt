@@ -60,15 +60,24 @@ class Order() {
     val shippingCost: BigDecimal
         get() {
             return when (shippingZone) {
-                ShippingZone.UK -> if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
-                else BigDecimal.ZERO
+                ShippingZone.UK -> calculateUkShippingCost()
 
-                ShippingZone.EU -> if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
-                else BigDecimal("5.99")
+                ShippingZone.EU -> calculateEuShippingCost()
 
-                ShippingZone.Other -> if (totalExclShipping < BigDecimal("100")) BigDecimal("12.99")
-                else BigDecimal("9.99")
+                ShippingZone.Other -> calculateRestOfTheWorldShippingCost()
             }
         }
+
+    private fun calculateRestOfTheWorldShippingCost(): BigDecimal =
+        if (totalExclShipping < BigDecimal("100")) BigDecimal("12.99")
+        else BigDecimal("9.99")
+
+    private fun calculateEuShippingCost(): BigDecimal =
+        if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
+        else BigDecimal("5.99")
+
+    private fun calculateUkShippingCost(): BigDecimal =
+        if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
+        else BigDecimal.ZERO
 }
 
