@@ -9,7 +9,7 @@ class CalculateShippingTests {
     @Test
     fun `for UK order cost under 100`() {
         val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
-        val customer = Customer("UK")
+        val customer = Customer(Country.UK)
         val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
@@ -26,7 +26,7 @@ class CalculateShippingTests {
             stockQty = 7,
             holdQty = 1
         )
-        val customer = Customer("UK")
+        val customer = Customer(Country.UK)
         val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
@@ -37,7 +37,7 @@ class CalculateShippingTests {
     @Test
     fun `for EU order cost under 100`() {
         val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
-        val customer = Customer("Germany")
+        val customer = Customer(Country.Germany)
         val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
@@ -54,7 +54,7 @@ class CalculateShippingTests {
             stockQty = 7,
             holdQty = 1
         )
-        val customer = Customer("France")
+        val customer = Customer(Country.France)
         val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
@@ -65,7 +65,7 @@ class CalculateShippingTests {
     @Test
     fun `for other region cost under 100`() {
         val product = Product(id = 123, description = "Musica", price = BigDecimal("99.99"), stockQty = 8, holdQty = 1)
-        val customer = Customer("United States")
+        val customer = Customer(Country.UnitedStates)
         val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost
@@ -82,7 +82,7 @@ class CalculateShippingTests {
             stockQty = 7,
             holdQty = 1
         )
-        val customer = Customer("United States")
+        val customer = Customer(Country.Japan)
         val order = customer.createOrder(product, 1)
 
         val shippingCost = order.shippingCost

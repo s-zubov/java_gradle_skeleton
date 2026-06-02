@@ -13,19 +13,19 @@ class Order() {
         }
     }
 
-    constructor(product: Product, quantity: Int, deliveryCountry: String) : this(product, quantity) {
+    constructor(product: Product, quantity: Int, deliveryCountry: Country) : this(product, quantity) {
         this.deliveryCountry = deliveryCountry
     }
 
-    private val shippingZone: String
+    private val shippingZone: ShippingZone
         get() = when (deliveryCountry) {
-            "UK" -> "UK"
-            "Germany" -> "EU"
-            "France" -> "EU"
-            else -> "Other"
+            Country.UK -> ShippingZone.UK
+            Country.Germany -> ShippingZone.EU
+            Country.France -> ShippingZone.EU
+            else -> ShippingZone.Other
         }
 
-    private var deliveryCountry: String? = null
+    private var deliveryCountry: Country? = null
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
@@ -60,16 +60,14 @@ class Order() {
     val shippingCost: BigDecimal
         get() {
             return when (shippingZone) {
-                "UK" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
+                ShippingZone.UK -> if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
                 else BigDecimal.ZERO
 
-                "EU" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
+                ShippingZone.EU -> if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
                 else BigDecimal("5.99")
 
-                "Other" -> if (totalExclShipping < BigDecimal("100")) BigDecimal("12.99")
+                ShippingZone.Other -> if (totalExclShipping < BigDecimal("100")) BigDecimal("12.99")
                 else BigDecimal("9.99")
-
-                else -> throw IllegalStateException("Can't calculate shipping cost for shipping zone $shippingZone.")
             }
         }
 }
