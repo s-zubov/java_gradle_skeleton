@@ -1,5 +1,9 @@
 package com.codemanship
 
+import com.codemanship.shippingcost.EuShippingCostCalculation
+import com.codemanship.shippingcost.RestOfTheWorldShippingCostCalculation
+import com.codemanship.shippingcost.ShippingZone
+import com.codemanship.shippingcost.UkShippingCostCalculation
 import java.math.BigDecimal
 
 class Order() {
@@ -60,24 +64,12 @@ class Order() {
     val shippingCost: BigDecimal
         get() {
             return when (shippingZone) {
-                ShippingZone.UK -> calculateUkShippingCost()
+                ShippingZone.UK -> UkShippingCostCalculation().calculate(totalExclShipping)
 
-                ShippingZone.EU -> calculateEuShippingCost()
+                ShippingZone.EU -> EuShippingCostCalculation().calculate(totalExclShipping)
 
-                ShippingZone.Other -> calculateRestOfTheWorldShippingCost()
+                ShippingZone.Other -> RestOfTheWorldShippingCostCalculation().calculate(totalExclShipping)
             }
         }
-
-    private fun calculateRestOfTheWorldShippingCost(): BigDecimal =
-        if (totalExclShipping < BigDecimal("100")) BigDecimal("12.99")
-        else BigDecimal("9.99")
-
-    private fun calculateEuShippingCost(): BigDecimal =
-        if (totalExclShipping < BigDecimal("100")) BigDecimal("9.99")
-        else BigDecimal("5.99")
-
-    private fun calculateUkShippingCost(): BigDecimal =
-        if (totalExclShipping < BigDecimal("100")) BigDecimal("5.99")
-        else BigDecimal.ZERO
 }
 
