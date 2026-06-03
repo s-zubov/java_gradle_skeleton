@@ -64,11 +64,11 @@ class Order() {
     val shippingCost: BigDecimal
         get() {
             return when (shippingZone) {
-                ShippingZone.UK -> UkShippingPolicy().calculate(totalExclShipping)
+                ShippingZone.UK -> UkShippingPolicy().getCost(totalExclShipping)
 
-                ShippingZone.EU -> EuShippingPolicy().calculate(totalExclShipping)
+                ShippingZone.EU -> EuShippingPolicy().getCost(totalExclShipping)
 
-                ShippingZone.Other -> RestOfTheWorldShippingPolicy().calculate(totalExclShipping)
+                ShippingZone.Other -> RestOfTheWorldShippingPolicy().getCost(totalExclShipping)
             }
         }
 }

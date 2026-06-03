@@ -4,5 +4,5 @@ import java.math.BigDecimal
 
 abstract class ShippingPolicy {
 
-    abstract fun calculate(totalExclShipping: BigDecimal): BigDecimal
+    abstract fun getCost(totalExclShipping: BigDecimal): BigDecimal
 }
