@@ -60,7 +60,7 @@ class Order(
     }
 
     fun confirm() {
-        items.forEach { (_, orderItem) ->
+        items.values.forEach { orderItem ->
             orderItem.product.reduceStock(orderItem.quantity)
             orderItem.product.releaseHold(orderItem.quantity)
         }
