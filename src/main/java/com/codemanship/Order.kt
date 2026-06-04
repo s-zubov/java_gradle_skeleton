@@ -3,23 +3,21 @@ package com.codemanship
 import java.math.BigDecimal
 
 class Order(
-    private var deliveryCountry: Country? = null, private val shipping: Shipping = DefaultShipping
+    private val items: MutableMap<Int, OrderItem> = mutableMapOf(),
+    private var deliveryCountry: Country? = null,
+    private val shipping: Shipping = DefaultShipping
 ) {
     constructor(
         products: List<OrderItem>, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
-    ) : this(deliveryCountry, shipping) {
-        products.forEach { orderItem ->
-            items[orderItem.product.id] = orderItem
-        }
-    }
+    ) : this(
+        products.associateBy { item -> item.product.id }.toMutableMap(), deliveryCountry, shipping
+    )
 
     constructor(
         item: OrderItem, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
     ) : this(
         listOf(item), deliveryCountry, shipping
     )
-
-    private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
     var status: OrderStatus = OrderStatus.Open
         private set
