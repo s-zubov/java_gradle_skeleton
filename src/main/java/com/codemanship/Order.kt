@@ -4,20 +4,14 @@ import com.codemanship.shippingcost.ShippingPolicy
 import java.math.BigDecimal
 
 class Order(
+    private var deliveryCountry: Country? = null,
     private val shippingPolicies: ShippingPolicies = DefaultShippingPolicies
 ) {
-    constructor(product: Product, quantity: Int, shippingPolicies: ShippingPolicies = DefaultShippingPolicies) : this(
-        shippingPolicies
-    ) {
-        items[product.id] = OrderItem(product, quantity)
-    }
-
     constructor(
         products: List<Pair<Product, Int>>,
+        deliveryCountry: Country? = null,
         shippingPolicies: ShippingPolicies = DefaultShippingPolicies
-    ) : this(
-        shippingPolicies
-    ) {
+    ) : this(deliveryCountry, shippingPolicies) {
         products.forEach { (product, quantity) ->
             items[product.id] = OrderItem(product, quantity)
         }
@@ -26,16 +20,14 @@ class Order(
     constructor(
         product: Product,
         quantity: Int,
-        deliveryCountry: Country,
+        deliveryCountry: Country? = null,
         shippingPolicies: ShippingPolicies = DefaultShippingPolicies
-    ) : this(product, quantity, shippingPolicies) {
-        this.deliveryCountry = deliveryCountry
-        this.shippingPolicy = shippingPolicies.get(deliveryCountry)
-    }
+    ) : this(
+        listOf(product to quantity), deliveryCountry, shippingPolicies
+    )
 
-    private var shippingPolicy: ShippingPolicy? = null
-
-    private var deliveryCountry: Country? = null
+    private val shippingPolicy: ShippingPolicy?
+        get() = deliveryCountry?.let { shippingPolicies.get(it) }
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
@@ -43,6 +35,10 @@ class Order(
         get() {
             return items.values.sumOf { item -> item.price * item.quantity.toBigDecimal() }
         }
+
+    val shippingCost: BigDecimal
+        get() = shippingPolicy?.getCost(totalExclShipping)
+            ?: throw IllegalStateException("must specify delivery country")
 
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
 
@@ -66,9 +62,5 @@ class Order(
         items.remove(product.id)
         product.releaseHold(itemCountToRemove)
     }
-
-    val shippingCost: BigDecimal
-        get() = shippingPolicy?.getCost(totalExclShipping)
-            ?: throw IllegalStateException("must specify delivery country")
 }
 
