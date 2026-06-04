@@ -55,4 +55,28 @@ class ConfirmOrderTests {
         Assertions.assertEquals(0, ibanezProduct.holdQty)
         Assertions.assertEquals(0, fenderProduct.holdQty)
     }
+
+    @Test
+    fun `sets order status to Confirmed`() {
+        val ibanezProduct =
+            Product(
+                id = 327,
+                description = "Ibanez Tube Screamer",
+                price = BigDecimal("159.99"),
+                stockQty = 7,
+                holdQty = 2
+            )
+        val fenderProduct = Product(
+            id = 811,
+            description = "Fender Deluxe Reverb",
+            price = BigDecimal("1799.00"),
+            stockQty = 2,
+            holdQty = 1
+        )
+        val order = Order(listOf(ibanezProduct to 2, fenderProduct to 1))
+
+        order.confirm()
+
+        Assertions.assertEquals(OrderStatus.Confirmed, order.status)
+    }
 }

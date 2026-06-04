@@ -21,7 +21,8 @@ class Order(
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
-    private var status: OrderStatus = OrderStatus.Open
+    var status: OrderStatus = OrderStatus.Open
+        private set
 
     val totalExclShipping: BigDecimal
         get() {
