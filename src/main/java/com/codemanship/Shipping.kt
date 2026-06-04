@@ -12,10 +12,10 @@ interface Shipping {
 object DefaultShipping : Shipping {
     override fun cost(country: Country, totalExcludingShipping: BigDecimal): BigDecimal {
         val policy = when (country) {
-            Country.UK -> UkShippingPolicy()
-            Country.Germany -> EuShippingPolicy()
-            Country.France -> EuShippingPolicy()
-            else -> RestOfTheWorldShippingPolicy()
+            Country.UK -> UkShippingPolicy
+            Country.Germany -> EuShippingPolicy
+            Country.France -> EuShippingPolicy
+            else -> RestOfTheWorldShippingPolicy
         }
         return policy.getCost(totalExcludingShipping)
     }
