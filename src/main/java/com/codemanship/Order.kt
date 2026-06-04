@@ -1,33 +1,39 @@
 package com.codemanship
 
-import com.codemanship.shippingcost.EuShippingPolicy
-import com.codemanship.shippingcost.RestOfTheWorldShippingPolicy
-import com.codemanship.shippingcost.ShippingZone
-import com.codemanship.shippingcost.UkShippingPolicy
+import com.codemanship.shippingcost.ShippingPolicy
 import java.math.BigDecimal
 
-class Order() {
-    constructor(product: Product, quantity: Int) : this() {
+class Order(
+    private val shippingPolicies: ShippingPolicies = DefaultShippingPolicies
+) {
+    constructor(product: Product, quantity: Int, shippingPolicies: ShippingPolicies = DefaultShippingPolicies) : this(
+        shippingPolicies
+    ) {
         items[product.id] = OrderItem(product, quantity)
     }
 
-    constructor(products: List<Pair<Product, Int>>) : this() {
+    constructor(
+        products: List<Pair<Product, Int>>,
+        shippingPolicies: ShippingPolicies = DefaultShippingPolicies
+    ) : this(
+        shippingPolicies
+    ) {
         products.forEach { (product, quantity) ->
             items[product.id] = OrderItem(product, quantity)
         }
     }
 
-    constructor(product: Product, quantity: Int, deliveryCountry: Country) : this(product, quantity) {
+    constructor(
+        product: Product,
+        quantity: Int,
+        deliveryCountry: Country,
+        shippingPolicies: ShippingPolicies = DefaultShippingPolicies
+    ) : this(product, quantity, shippingPolicies) {
         this.deliveryCountry = deliveryCountry
+        this.shippingPolicy = shippingPolicies.get(deliveryCountry)
     }
 
-    private val shippingZone: ShippingZone
-        get() = when (deliveryCountry) {
-            Country.UK -> ShippingZone.UK
-            Country.Germany -> ShippingZone.EU
-            Country.France -> ShippingZone.EU
-            else -> ShippingZone.Other
-        }
+    private var shippingPolicy: ShippingPolicy? = null
 
     private var deliveryCountry: Country? = null
 
@@ -62,14 +68,7 @@ class Order() {
     }
 
     val shippingCost: BigDecimal
-        get() {
-            return when (shippingZone) {
-                ShippingZone.UK -> UkShippingPolicy().getCost(totalExclShipping)
-
-                ShippingZone.EU -> EuShippingPolicy().getCost(totalExclShipping)
-
-                ShippingZone.Other -> RestOfTheWorldShippingPolicy().getCost(totalExclShipping)
-            }
-        }
+        get() = shippingPolicy?.getCost(totalExclShipping)
+            ?: throw IllegalStateException("must specify delivery country")
 }
 
