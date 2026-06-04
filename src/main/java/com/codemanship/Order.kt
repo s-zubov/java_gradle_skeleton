@@ -21,6 +21,8 @@ class Order(
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
+    private var status: OrderStatus = OrderStatus.Open
+
     val totalExclShipping: BigDecimal
         get() {
             return items.values.sumOf { item -> item.price * item.quantity.toBigDecimal() }
@@ -54,6 +56,13 @@ class Order(
         val itemCountToRemove = items[product.id]?.quantity ?: 0
         items.remove(product.id)
         product.releaseHold(itemCountToRemove)
+    }
+
+    fun confirm() {
+        items.forEach { (_, orderItem) ->
+            orderItem.product.reduceStock(orderItem.quantity)
+        }
+        status = OrderStatus.Confirmed
     }
 }
 

@@ -34,4 +34,8 @@ class Product {
     fun releaseHold(quantity: Int) {
         holdQty -= quantity
     }
+
+    fun reduceStock(quantity: Int) {
+        stockQty -= quantity
+    }
 }

@@ -9,7 +9,7 @@ class OrderItem {
         this.price = product.price
     }
 
-    private val product: Product
+    val product: Product
 
     var quantity: Int
         private set
