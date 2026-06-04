@@ -66,5 +66,11 @@ class Order(
         }
         status = OrderStatus.Confirmed
     }
+
+    fun cancel() {
+        items.values.forEach { orderItem ->
+            orderItem.product.releaseHold(orderItem.quantity)
+        }
+    }
 }
 
