@@ -2,20 +2,21 @@ package com.codemanship
 
 import com.codemanship.shippingcost.EuShippingPolicy
 import com.codemanship.shippingcost.RestOfTheWorldShippingPolicy
-import com.codemanship.shippingcost.ShippingPolicy
 import com.codemanship.shippingcost.UkShippingPolicy
+import java.math.BigDecimal
 
-interface ShippingPolicies {
-    fun get(country: Country): ShippingPolicy
+interface Shipping {
+    fun cost(country: Country, totalExcludingShipping: BigDecimal): BigDecimal
 }
 
-object DefaultShippingPolicies : ShippingPolicies {
-    override fun get(country: Country): ShippingPolicy {
-        return when (country) {
+object DefaultShipping : Shipping {
+    override fun cost(country: Country, totalExcludingShipping: BigDecimal): BigDecimal {
+        val policy = when (country) {
             Country.UK -> UkShippingPolicy()
             Country.Germany -> EuShippingPolicy()
             Country.France -> EuShippingPolicy()
             else -> RestOfTheWorldShippingPolicy()
         }
+        return policy.getCost(totalExcludingShipping)
     }
 }

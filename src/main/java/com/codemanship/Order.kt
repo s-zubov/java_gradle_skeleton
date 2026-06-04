@@ -1,33 +1,23 @@
 package com.codemanship
 
-import com.codemanship.shippingcost.ShippingPolicy
 import java.math.BigDecimal
 
 class Order(
-    private var deliveryCountry: Country? = null,
-    private val shippingPolicies: ShippingPolicies = DefaultShippingPolicies
+    private var deliveryCountry: Country? = null, private val shipping: Shipping = DefaultShipping
 ) {
     constructor(
-        products: List<Pair<Product, Int>>,
-        deliveryCountry: Country? = null,
-        shippingPolicies: ShippingPolicies = DefaultShippingPolicies
-    ) : this(deliveryCountry, shippingPolicies) {
+        products: List<Pair<Product, Int>>, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
+    ) : this(deliveryCountry, shipping) {
         products.forEach { (product, quantity) ->
             items[product.id] = OrderItem(product, quantity)
         }
     }
 
     constructor(
-        product: Product,
-        quantity: Int,
-        deliveryCountry: Country? = null,
-        shippingPolicies: ShippingPolicies = DefaultShippingPolicies
+        product: Product, quantity: Int, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
     ) : this(
-        listOf(product to quantity), deliveryCountry, shippingPolicies
+        listOf(product to quantity), deliveryCountry, shipping
     )
-
-    private val shippingPolicy: ShippingPolicy?
-        get() = deliveryCountry?.let { shippingPolicies.get(it) }
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()
 
@@ -37,8 +27,11 @@ class Order(
         }
 
     val shippingCost: BigDecimal
-        get() = shippingPolicy?.getCost(totalExclShipping)
-            ?: throw IllegalStateException("must specify delivery country")
+        get() {
+            val deliverTo = deliveryCountry
+            checkNotNull(deliverTo) { "Delivery Country is not set" }
+            return shipping.cost(deliverTo, totalExclShipping)
+        }
 
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
 
