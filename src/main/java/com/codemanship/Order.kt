@@ -71,6 +71,7 @@ class Order(
         items.values.forEach { orderItem ->
             orderItem.product.releaseHold(orderItem.quantity)
         }
+        status = OrderStatus.Cancelled
     }
 }
 
