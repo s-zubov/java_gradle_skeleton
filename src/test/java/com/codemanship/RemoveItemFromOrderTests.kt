@@ -19,7 +19,7 @@ class RemoveItemFromOrderTests {
                 stockQty = 7,
                 holdQty = 2
             )
-            val order = Order(product, 2)
+            val order = Order(OrderItem(product, 2))
 
             order.remove(product)
 
@@ -35,7 +35,7 @@ class RemoveItemFromOrderTests {
                 stockQty = 7,
                 holdQty = 2
             )
-            val order = Order(product, 2)
+            val order = Order(OrderItem(product, 2))
 
             order.remove(product)
 

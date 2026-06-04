@@ -23,7 +23,7 @@ class ConfirmOrderTests {
             stockQty = 2,
             holdQty = 1
         )
-        val order = Order(listOf(ibanezProduct to 2, fenderProduct to 1))
+        val order = Order(listOf(OrderItem(ibanezProduct, 2), OrderItem(fenderProduct, 1)))
 
         order.confirm()
 
@@ -48,7 +48,7 @@ class ConfirmOrderTests {
             stockQty = 2,
             holdQty = 1
         )
-        val order = Order(listOf(ibanezProduct to 2, fenderProduct to 1))
+        val order = Order(listOf(OrderItem(ibanezProduct, 2), OrderItem(fenderProduct, 1)))
 
         order.confirm()
 
@@ -57,7 +57,7 @@ class ConfirmOrderTests {
     }
 
     @Test
-    fun `sets order status to Confirmed`() {
+    fun `sets order status, Confirmed`() {
         val ibanezProduct =
             Product(
                 id = 327,
@@ -73,7 +73,7 @@ class ConfirmOrderTests {
             stockQty = 2,
             holdQty = 1
         )
-        val order = Order(listOf(ibanezProduct to 2, fenderProduct to 1))
+        val order = Order(listOf(OrderItem(ibanezProduct, 2), OrderItem(fenderProduct, 1)))
 
         order.confirm()
 

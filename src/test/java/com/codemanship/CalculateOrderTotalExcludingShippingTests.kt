@@ -20,7 +20,7 @@ class CalculateOrderTotalExcludingShippingTests {
         val product = Product(
             id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
         )
-        val order = Order(product, 1)
+        val order = Order(OrderItem(product, 1))
 
         val totalExclShipping = order.totalExclShipping
 
@@ -35,7 +35,7 @@ class CalculateOrderTotalExcludingShippingTests {
         val product2 = Product(
             id = 811, description = "Fender Deluxe Reverb", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
         )
-        val order = Order(listOf(product to 1, product2 to 1))
+        val order = Order(listOf(OrderItem(product, 1), OrderItem(product2, 1)))
 
         val totalExclShipping = order.totalExclShipping
 
@@ -47,7 +47,7 @@ class CalculateOrderTotalExcludingShippingTests {
         val product = Product(
             id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 2
         )
-        val order = Order(product, 2)
+        val order = Order(OrderItem(product, 2))
 
         val totalExclShipping = order.totalExclShipping
 

@@ -6,17 +6,17 @@ class Order(
     private var deliveryCountry: Country? = null, private val shipping: Shipping = DefaultShipping
 ) {
     constructor(
-        products: List<Pair<Product, Int>>, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
+        products: List<OrderItem>, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
     ) : this(deliveryCountry, shipping) {
-        products.forEach { (product, quantity) ->
-            items[product.id] = OrderItem(product, quantity)
+        products.forEach { orderItem ->
+            items[orderItem.product.id] = orderItem
         }
     }
 
     constructor(
-        product: Product, quantity: Int, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
+        item: OrderItem, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
     ) : this(
-        listOf(product to quantity), deliveryCountry, shipping
+        listOf(item), deliveryCountry, shipping
     )
 
     private val items: MutableMap<Int, OrderItem> = mutableMapOf()

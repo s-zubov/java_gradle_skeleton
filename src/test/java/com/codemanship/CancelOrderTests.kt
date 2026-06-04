@@ -13,7 +13,7 @@ class CancelOrderTests {
         val fenderProduct = Product(
             id = 811, description = "Fender Deluxe Reverb", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
         )
-        val order = Order(listOf(ibanezProduct to 2, fenderProduct to 1))
+        val order = Order(listOf(OrderItem(ibanezProduct, 2), OrderItem(fenderProduct, 1)))
 
         order.cancel()
 
@@ -29,7 +29,7 @@ class CancelOrderTests {
         val fenderProduct = Product(
             id = 811, description = "Fender Deluxe Reverb", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
         )
-        val order = Order(listOf(ibanezProduct to 2, fenderProduct to 1))
+        val order = Order(listOf(OrderItem(ibanezProduct, 2), OrderItem(fenderProduct, 1)))
 
         order.cancel()
 
@@ -38,14 +38,14 @@ class CancelOrderTests {
     }
 
     @Test
-    fun `sets order status to Cancelled`() {
+    fun `sets order status, Cancelled`() {
         val ibanezProduct = Product(
             id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.99"), stockQty = 7, holdQty = 2
         )
         val fenderProduct = Product(
             id = 811, description = "Fender Deluxe Reverb", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
         )
-        val order = Order(listOf(ibanezProduct to 2, fenderProduct to 1))
+        val order = Order(listOf(OrderItem(ibanezProduct, 2), OrderItem(fenderProduct, 1)))
 
         order.cancel()
 
