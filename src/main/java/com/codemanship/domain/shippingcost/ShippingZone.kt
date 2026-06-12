@@ -1,4 +1,4 @@
-package com.codemanship.shippingcost
+package com.codemanship.domain.shippingcost
 
 enum class ShippingZone {
     UK,

@@ -1,8 +1,8 @@
-package com.codemanship
+package com.codemanship.domain
 
-import com.codemanship.shippingcost.EuShippingPolicy
-import com.codemanship.shippingcost.RestOfTheWorldShippingPolicy
-import com.codemanship.shippingcost.UkShippingPolicy
+import com.codemanship.domain.shippingcost.EuShippingPolicy
+import com.codemanship.domain.shippingcost.RestOfTheWorldShippingPolicy
+import com.codemanship.domain.shippingcost.UkShippingPolicy
 import java.math.BigDecimal
 
 interface Shipping {

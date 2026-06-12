@@ -1,4 +1,4 @@
-package com.codemanship
+package com.codemanship.domain
 
 import java.math.BigDecimal
 
