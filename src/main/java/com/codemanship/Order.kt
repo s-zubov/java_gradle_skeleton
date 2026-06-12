@@ -37,9 +37,7 @@ class Order(
     fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
 
     fun add(product: Product, quantity: Int) {
-        if (product.stockQty < product.holdQty + quantity) {
-            throw InsufficientStockException(product)
-        }
+        product.hold(quantity)
 
         val existingItem: OrderItem? = items[product.id]
         if (existingItem != null) {
@@ -47,8 +45,6 @@ class Order(
         } else {
             items[product.id] = OrderItem(product, quantity)
         }
-
-        product.hold(quantity)
     }
 
     fun remove(product: Product) {

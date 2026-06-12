@@ -28,6 +28,9 @@ class Product {
         get() = stockQty - holdQty
 
     fun hold(quantity: Int) {
+        if (stockQty < holdQty + quantity) {
+            throw InsufficientStockException(this)
+        }
         holdQty += quantity
     }
 
