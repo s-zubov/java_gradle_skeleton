@@ -1,4 +1,4 @@
-package com.codemanship.domain.shippingcost
+package com.codemanship.domain.shipping
 
 import java.math.BigDecimal
 

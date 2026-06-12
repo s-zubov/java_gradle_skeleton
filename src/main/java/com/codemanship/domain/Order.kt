@@ -1,5 +1,7 @@
 package com.codemanship.domain
 
+import com.codemanship.domain.shipping.DefaultShipping
+import com.codemanship.domain.shipping.Shipping
 import java.math.BigDecimal
 
 class Order(
