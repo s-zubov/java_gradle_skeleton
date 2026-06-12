@@ -55,8 +55,7 @@ class Order(
 
     fun confirm() {
         items.values.forEach { orderItem ->
-            orderItem.product.reduceStock(orderItem.quantity)
-            orderItem.product.releaseHold(orderItem.quantity)
+            orderItem.product.realise(orderItem.quantity)
         }
         status = OrderStatus.Confirmed
     }

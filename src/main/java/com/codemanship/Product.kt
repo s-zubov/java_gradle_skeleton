@@ -34,11 +34,16 @@ class Product {
         holdQty += quantity
     }
 
+    fun realise(quantity: Int) {
+        reduceStock(quantity)
+        releaseHold(quantity)
+    }
+
     fun releaseHold(quantity: Int) {
         holdQty -= quantity
     }
 
-    fun reduceStock(quantity: Int) {
+    private fun reduceStock(quantity: Int) {
         stockQty -= quantity
     }
 }
