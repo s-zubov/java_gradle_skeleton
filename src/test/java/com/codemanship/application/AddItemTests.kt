@@ -18,7 +18,7 @@ class AddItemTests {
             holdQty = 0
         )
         val products: Products = object : Products {
-            override fun get(id: Int): Product {
+            override fun get(id: String): Product {
                 return product
             }
 

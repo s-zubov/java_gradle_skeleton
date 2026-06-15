@@ -5,7 +5,7 @@ import com.codemanship.domain.shipping.Shipping
 import java.math.BigDecimal
 
 class Order(
-    private val items: MutableMap<Int, OrderItem> = mutableMapOf(),
+    val items: MutableMap<String, OrderItem> = mutableMapOf(),
     private var deliveryCountry: Country? = null,
     private val shipping: Shipping = DefaultShipping
 ) {
@@ -36,7 +36,7 @@ class Order(
             return shipping.cost(deliverTo, totalExclShipping)
         }
 
-    fun quantityOf(id: Int): Int = items[id]?.quantity ?: 0
+    fun quantityOf(id: String): Int = items[id]?.quantity ?: 0
 
     fun add(product: Product, quantity: Int) {
         product.hold(quantity)

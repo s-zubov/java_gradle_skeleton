@@ -3,7 +3,7 @@ package com.codemanship.domain
 import java.math.BigDecimal
 
 class Product {
-    constructor(id: Int, description: String, price: BigDecimal, stockQty: Int, holdQty: Int) {
+    constructor(id: String, description: String, price: BigDecimal, stockQty: Int, holdQty: Int) {
         this.id = id
         this.description = description
         this.price = price
@@ -11,7 +11,7 @@ class Product {
         this.holdQty = holdQty
     }
 
-    val id: Int
+    val id: String
 
     var description: String
         private set
