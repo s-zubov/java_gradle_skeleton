@@ -13,7 +13,7 @@ class RemoveItemFromOrderTests {
         @Test
         fun `the order contains no item`() {
             val product = Product(
-                id = 327,
+                id = "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 7,
@@ -23,13 +23,13 @@ class RemoveItemFromOrderTests {
 
             order.remove(product)
 
-            Assertions.assertEquals(0, order.quantityOf(327))
+            Assertions.assertEquals(0, order.quantityOf("327"))
         }
 
         @Test
         fun `temporary hold is released from the product stock`() {
             val product = Product(
-                id = 327,
+                id = "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 7,

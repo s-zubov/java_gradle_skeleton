@@ -11,7 +11,7 @@ class AddItemTests {
     @Test
     fun `puts a temporary hold`() {
         val product = Product(
-            327,
+            "327",
             description = "Ibanez Tube Screamer",
             price = BigDecimal("159.99"),
             stockQty = 7,
@@ -33,7 +33,7 @@ class AddItemTests {
         }
 
         val orderCommands = OrderCommands(products, orders)
-        orderCommands.addItem(327, 1)
+        orderCommands.addItem("327", 1)
 
         Assertions.assertEquals(1, product.holdQty)
     }

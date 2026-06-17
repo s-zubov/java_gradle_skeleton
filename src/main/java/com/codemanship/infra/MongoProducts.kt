@@ -3,15 +3,13 @@ package com.codemanship.infra
 import com.codemanship.application.Products
 import com.codemanship.domain.Product
 import com.mongodb.client.model.Filters.eq
-import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoCollection
+import com.mongodb.kotlin.client.MongoDatabase
 import org.bson.types.ObjectId
 
-class MongoProducts(private val uri: String) : Products {
+class MongoProducts(val database: MongoDatabase) : Products {
     private val collection: MongoCollection<ProductData>
         get() {
-            val mongoClient = MongoClient.create(uri)
-            val database = mongoClient.getDatabase("guitars")
             return database.getCollection<ProductData>("products")
         }
 

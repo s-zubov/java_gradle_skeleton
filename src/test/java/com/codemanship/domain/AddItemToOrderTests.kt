@@ -13,7 +13,7 @@ class AddItemToOrderTests {
         fun `puts a temporary hold`() {
             val order = Order()
             val product = Product(
-                327,
+                "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 7,
@@ -29,7 +29,7 @@ class AddItemToOrderTests {
         fun `sets order quantity to 1`() {
             val order = Order()
             val product = Product(
-                327,
+                "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 7,
@@ -38,7 +38,7 @@ class AddItemToOrderTests {
 
             order.add(product, 1)
 
-            Assertions.assertEquals(1, order.quantityOf(327))
+            Assertions.assertEquals(1, order.quantityOf("327"))
         }
     }
 
@@ -48,7 +48,7 @@ class AddItemToOrderTests {
         fun `order contains no items`() {
             val order = Order()
             val product = Product(
-                id = 327,
+                id = "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 1,
@@ -57,14 +57,14 @@ class AddItemToOrderTests {
 
             runCatching { order.add(product, 2) }
 
-            Assertions.assertEquals(0, order.quantityOf(327))
+            Assertions.assertEquals(0, order.quantityOf("327"))
         }
 
         @Test
         fun `insufficient stock error is raised`() {
             val order = Order()
             val product = Product(
-                id = 327,
+                id = "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 1,
@@ -88,7 +88,7 @@ class AddItemToOrderTests {
         fun `order contains no items`() {
             val order = Order()
             val product = Product(
-                id = 327,
+                id = "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 2,
@@ -97,14 +97,14 @@ class AddItemToOrderTests {
 
             runCatching { order.add(product, 2) }
 
-            Assertions.assertEquals(0, order.quantityOf(327))
+            Assertions.assertEquals(0, order.quantityOf("327"))
         }
 
         @Test
         fun `insufficient stock error is raised`() {
             val order = Order()
             val product = Product(
-                id = 327,
+                id = "327",
                 description = "Ibanez Tube Screamer",
                 price = BigDecimal("159.99"),
                 stockQty = 2,

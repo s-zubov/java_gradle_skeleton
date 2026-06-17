@@ -2,15 +2,13 @@ package com.codemanship.infra
 
 import com.codemanship.application.Orders
 import com.codemanship.domain.Order
-import com.mongodb.kotlin.client.MongoClient
 import com.mongodb.kotlin.client.MongoCollection
+import com.mongodb.kotlin.client.MongoDatabase
 import org.bson.types.ObjectId
 
-class MongoOrders(private val uri: String) : Orders {
+class MongoOrders(val database: MongoDatabase) : Orders {
     private val collection: MongoCollection<OrderData>
         get() {
-            val mongoClient = MongoClient.create(uri)
-            val database = mongoClient.getDatabase("guitars")
             return database.getCollection<OrderData>("orders")
         }
 

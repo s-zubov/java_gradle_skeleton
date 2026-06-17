@@ -18,7 +18,7 @@ class CalculateOrderTotalExcludingShippingTests {
     @Test
     fun `for an order with one item`() {
         val product = Product(
-            id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
+            id = "327", description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
         )
         val order = Order(OrderItem(product, 1))
 
@@ -30,10 +30,10 @@ class CalculateOrderTotalExcludingShippingTests {
     @Test
     fun `for an order with two items`() {
         val product = Product(
-            id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
+            id = "327", description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 1
         )
         val product2 = Product(
-            id = 811, description = "Fender Deluxe Reverb", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
+            id = "811", description = "Fender Deluxe Reverb", price = BigDecimal("1799.00"), stockQty = 2, holdQty = 1
         )
         val order = Order(listOf(OrderItem(product, 1), OrderItem(product2, 1)))
 
@@ -45,7 +45,7 @@ class CalculateOrderTotalExcludingShippingTests {
     @Test
     fun `for an order with one item of two quantity`() {
         val product = Product(
-            id = 327, description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 2
+            id = "327", description = "Ibanez Tube Screamer", price = BigDecimal("159.95"), stockQty = 7, holdQty = 2
         )
         val order = Order(OrderItem(product, 2))
 
