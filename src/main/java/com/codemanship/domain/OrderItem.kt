@@ -2,7 +2,7 @@ package com.codemanship.domain
 
 import java.math.BigDecimal
 
-class OrderItem {
+class OrderItem : Printable {
     constructor(product: Product, quantity: Int) {
         this.product = product
         this.quantity = quantity
@@ -18,5 +18,11 @@ class OrderItem {
 
     fun add(qty: Int) {
         quantity += qty
+    }
+
+    override fun print(media: Media): Media {
+        return media
+            .with("quantity", quantity)
+            .with("productId", product.id)
     }
 }

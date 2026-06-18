@@ -13,5 +13,5 @@ fun main() {
 
     val commands = OrderCommands(products, orders)
 
-    commands.addItem("6a32b64cc889fbda459df8a3", 1)
+    commands.addItem("6a34082cc889fbda459df8a4", 1)
 }

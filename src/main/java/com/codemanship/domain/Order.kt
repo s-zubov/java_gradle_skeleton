@@ -8,7 +8,7 @@ class Order(
     val items: MutableMap<String, OrderItem> = mutableMapOf(),
     private var deliveryCountry: Country? = null,
     private val shipping: Shipping = DefaultShipping
-) {
+) : Printable {
     constructor(
         products: List<OrderItem>, deliveryCountry: Country? = null, shipping: Shipping = DefaultShipping
     ) : this(
@@ -67,6 +67,12 @@ class Order(
             orderItem.product.releaseHold(orderItem.quantity)
         }
         status = OrderStatus.Cancelled
+    }
+
+    override fun print(media: Media): Media {
+        return media
+            .with("status", status)
+            .with("items", items.values.toList())
     }
 }
 
