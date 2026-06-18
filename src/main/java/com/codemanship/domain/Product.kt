@@ -2,7 +2,7 @@ package com.codemanship.domain
 
 import java.math.BigDecimal
 
-class Product {
+class Product : Printable {
     constructor(id: String, description: String, price: BigDecimal, stockQty: Int, holdQty: Int) {
         this.id = id
         this.description = description
@@ -45,5 +45,13 @@ class Product {
 
     private fun reduceStock(quantity: Int) {
         stockQty -= quantity
+    }
+
+    override fun print(media: Media): Media {
+        return media
+            .with("price", price)
+            .with("stockQty", stockQty)
+            .with("holdQty", holdQty)
+            .with("description", description)
     }
 }
